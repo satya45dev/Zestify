@@ -1,0 +1,170 @@
+[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$B7PGvKAsG5OkptTROVlLQw$I6yvPcMMoaOjIZq7mpwm+urgZjvj1f25Yn8RX0e1rZc=",
+    "last_login": "2025-11-17T17:19:29.049Z",
+    "is_superuser": true,
+    "username": "Aizen_45",
+    "first_name": "",
+    "last_name": "",
+    "email": "otaku69club@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-11-17T07:36:16.140Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$oTHHy0aBkBctDVHYKjGszO$WYo5ArNXZP+mrevfwwXtwk9Y7bDHGHvmn7oOJAscT6o=",
+    "last_login": "2025-11-18T06:34:36.822Z",
+    "is_superuser": false,
+    "username": "Hitman_45",
+    "first_name": "",
+    "last_name": "",
+    "email": "otaku68club@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-11-17T11:31:39.641Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.category",
+  "pk": 1,
+  "fields": {
+    "name": "Smartphone",
+    "slug": "smartphone"
+  }
+},
+{
+  "model": "core.category",
+  "pk": 2,
+  "fields": {
+    "name": "Music",
+    "slug": "music"
+  }
+},
+{
+  "model": "core.category",
+  "pk": 3,
+  "fields": {
+    "name": "Sports",
+    "slug": "sports"
+  }
+},
+{
+  "model": "core.category",
+  "pk": 4,
+  "fields": {
+    "name": "Electronics",
+    "slug": "electronics"
+  }
+},
+{
+  "model": "core.product",
+  "pk": 6,
+  "fields": {
+    "category": 1,
+    "name": "iPhone 17 Pro Max",
+    "description": "Featuring the next-generation A19 Pro Chip with 6-core CPU and 6-core GPU, the iPhone 17 Pro Max offers Superfast Multitasking and Extensive Gaming. It boasts a powerful Triple-camera Fusion system (48MP Main, 48MP Ultra Wide, 48MP Telephoto with 8x optical zoom), a 6.7-inch All Screen OLED Display, and aerospace-grade titanium build. Runs on iOS 26 with new Apple Intelligence features.",
+    "price": "150000.00",
+    "image": "products/iphone_17_pro_max.jpg",
+    "created_at": "2025-11-17T17:36:54.205Z"
+  }
+},
+{
+  "model": "core.product",
+  "pk": 7,
+  "fields": {
+    "category": 3,
+    "name": "Adidas Al Rihla League Training Ball",
+    "description": "Official size and weight professional match ball. High durability and grip.",
+    "price": "1999.00",
+    "image": "products/pro_football.jpg",
+    "created_at": "2025-11-17T17:36:54.384Z"
+  }
+},
+{
+  "model": "core.product",
+  "pk": 8,
+  "fields": {
+    "category": 2,
+    "name": "Bose Noise Cancelling Headphones",
+    "description": "You can stay connected to your music and enjoy clear calls with the Bose QuietComfort Ultra Headphones. Thanks to their spatial audio, these headphones deliver an immersive experience that makes music feel life-like. With CustomTune technology, they personalise the sound to suit your preferences, offering a truly tailored listening experience. Moreover, equipped with ‘Quiet’ Mode, ‘Aware’ Mode, and ‘Immersion’ Mode, these headphones combine full noise cancellation with Bose Immersive Audio for a captivating, distraction-free environment.",
+    "price": "24999.00",
+    "image": "products/bose_noise_cancelling_headphones.jpg",
+    "created_at": "2025-11-17T17:36:54.454Z"
+  }
+},
+{
+  "model": "core.product",
+  "pk": 9,
+  "fields": {
+    "category": 4,
+    "name": "Canon DSLR Camera",
+    "description": "**Key Specifications:** Effective Pixels: 24.2 MP | Sensor Type: CMOS | WiFi Available. **Video & Performance:** 4K UHD (6K oversampling) and 4K 60p, 4K/30p (High quality video oversampled from 6K), Up to 23 fps continuous shooting with AF/AE tracking, Dual Pixel CMOS AF II, -4EV low light focusing. **Display & Streaming:** 7.5cm 1.04-million dot Vari-Angle Touchscreen, YouTube live streaming.",
+    "price": "65000.00",
+    "image": "products/canon_dslr_camera.jpg",
+    "created_at": "2025-11-17T17:36:55.319Z"
+  }
+},
+{
+  "model": "core.product",
+  "pk": 10,
+  "fields": {
+    "category": 2,
+    "name": "Marshall Stanmore III",
+    "description": "The Marshall Acton III is a compact yet powerful Bluetooth speaker delivering a wider stereo soundstage with rich, room-filling audio. Built sustainably using 70% recycled plastic and vegan materials, it supports next-gen Bluetooth features and includes a 3.5 mm input for seamless connectivity. With its iconic, stripped-back design, Acton III blends heritage style with future-ready tech—perfect for music lovers who value performance, design, and environmental responsibility in one sleek package.",
+    "price": "30500.00",
+    "image": "products/smart_bluetooth_speakers.jpg",
+    "created_at": "2025-11-17T17:36:56.036Z"
+  }
+},
+{
+  "model": "core.order",
+  "pk": 1,
+  "fields": {
+    "user": 2,
+    "product_names": "1x iPhone 17 Pro Max",
+    "total_price": "150000.00",
+    "created_at": "2025-11-17T19:09:57.041Z"
+  }
+},
+{
+  "model": "core.order",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "product_names": "1x iPhone 17 Pro Max\n1x Adidas Al Rihla League Training Ball",
+    "total_price": "151999.00",
+    "created_at": "2025-11-17T19:53:39.542Z"
+  }
+},
+{
+  "model": "core.order",
+  "pk": 3,
+  "fields": {
+    "user": 2,
+    "product_names": "1x iPhone 17 Pro Max",
+    "total_price": "150000.00",
+    "created_at": "2025-11-17T20:43:14.378Z"
+  }
+},
+{
+  "model": "core.order",
+  "pk": 4,
+  "fields": {
+    "user": 2,
+    "product_names": "1x iPhone 17 Pro Max",
+    "total_price": "150000.00",
+    "created_at": "2025-11-17T20:49:05.131Z"
+  }
+}
+]
