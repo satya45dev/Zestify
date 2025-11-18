@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5" style="margin-top: 50px;">
+    
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+            
+            <i class="bi bi-check-circle-fill display-1 text-success mb-4"></i>
+            
+            <h1 class="mb-3">Order Placed Successfully!</h1>
+            <p class="lead text-muted">Thank you for your purchase. Your order details are below.</p>
+            
+            <div class="card shadow-sm border-success mt-4 mb-5">
+                <div class="card-body">
+                    <h4 class="text-success mb-4">Order #{{ order.id }}</h4>
+                    
+                    <div class="row text-start small">
+                        <div class="col-md-6 mb-3">
+                            <p class="fw-bold mb-1">Status:</p>
+                            <p class="text-success">Processing (Payment Confirmed)</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <p class="fw-bold mb-1">Order Date:</p>
+                            <p>{{ order.created_at|date:"F j, Y" }}</p>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <p class="fw-bold text-start mb-2">Items Ordered:</p>
+                    <ul class="list-group list-group-flush text-start">
+                        {% for item in order_summary %}
+                            <li class="list-group-item small">{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+
+                    <h3 class="mt-4 fw-bold">Total: ₹{{ order.total_price }}</h3>
+                </div>
+            </div>
+            
+            <div class="d-flex justify-content-center gap-3">
+                <a href="{% url 'user_dashboard' %}" class="btn btn-primary btn-lg">
+                    <i class="bi bi-speedometer2"></i> Go to Dashboard
+                </a>
+                <a href="{% url 'index' %}" class="btn btn-outline-secondary btn-lg">
+                    Continue Shopping
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

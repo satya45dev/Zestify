@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5" style="margin-top: 50px;">
+    
+    <h2 class="mb-4">{{ title }}</h2>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 p-4">
+                
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <h5 class="mb-3 text-primary">Core Profile Information</h5>
+
+                    <div class="row g-3">
+                        
+                        {# Username (Read-only) #}
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.username.label }}</label>
+                            {{ form.username }}
+                            <div class="form-text">Username cannot be changed after creation.</div>
+                        </div>
+
+                        {# Email Address #}
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.email.label }}</label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="text-danger small">{{ form.email.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        {# First Name #}
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.first_name.label }}</label>
+                            {{ form.first_name }}
+                        </div>
+
+                        {# Last Name #}
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">{{ form.last_name.label }}</label>
+                            {{ form.last_name }}
+                        </div>
+
+                    </div>
+                    
+                    <hr class="mt-4 mb-4">
+                    
+                    <button type="submit" class="btn btn-success btn-lg px-5">
+                        <i class="bi bi-save"></i> Save Changes
+                    </button>
+                    
+                </form>
+
+            </div>
+            
+            <div class="card shadow-sm border-0 p-4 mt-4">
+                <h5 class="mb-3 text-danger">Security and Password</h5>
+                <p>To change your password, please click the link below.</p>
+                <a href="#" class="btn btn-outline-danger w-50">
+                    Change Password
+                </a>
+            </div>
+
+        </div>
+
+        <div class="col-lg-4">
+             <div class="card bg-light p-3 shadow-sm border-0">
+                <h5 class="text-primary mb-3"><i class="bi bi-speedometer2 me-2"></i> Quick Links</h5>
+                <ul class="list-unstyled mb-0 small">
+                    <li class="mb-2"><a href="{% url 'my_addresses' %}" class="text-decoration-none text-dark">Manage Addresses</a></li>
+                    <li class="mb-2"><a href="{% url 'payment_methods' %}" class="text-decoration-none text-dark">Manage Payments</a></li>
+                    <li class="mb-2"><a href="{% url 'track_orders' %}" class="text-decoration-none text-dark">View Orders</a></li>
+                </ul>
+                <hr>
+                <a href="{% url 'user_dashboard' %}" class="btn btn-outline-secondary w-100">
+                    <i class="bi bi-arrow-left"></i> Back to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

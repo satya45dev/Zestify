@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5" style="margin-top: 50px;">
+    
+    <h2 class="mb-4">{{ title }}</h2>
+
+    <div class="card shadow-sm border-0 p-4">
+        <form method="post">
+            {% csrf_token %}
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% if method_type == 'card' %}
+                <h5 class="mb-3">Card Details</h5>
+                
+                <div class="mb-3">
+                    <label class="form-label">{{ form.full_card_number.label }}</label>
+                    {{ form.full_card_number }}
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">{{ form.card_holder_name.label }}</label>
+                    {{ form.card_holder_name }}
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <label class="form-label">Expiry Month</label>
+                        {{ form.expiry_month }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Expiry Year</label>
+                        {{ form.expiry_year }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">{{ form.cvv.label }}</label>
+                        {{ form.cvv }}
+                    </div>
+                </div>
+
+                <div class="alert alert-warning small">
+                    **Note:** In a real application, card details would be handled by a secure payment gateway and never saved directly to the database. We are only saving the last 4 digits here.
+                </div>
+
+            {% elif method_type == 'upi' %}
+                <h5 class="mb-3">UPI ID Details</h5>
+                
+                <div class="mb-3">
+                    <label class="form-label">{{ form.upi_id.label }}</label>
+                    {{ form.upi_id }}
+                    <small class="form-text text-muted">Ensure your UPI ID is correct (e.g., username@bank).</small>
+                </div>
+            {% endif %}
+            
+            {# Hidden fields for the models #}
+            {{ form.card_type }}
+            {{ form.is_default }}
+
+            <div class="d-flex align-items-center gap-3 mt-4">
+                <button type="submit" class="btn btn-success btn-lg px-5">SAVE</button>
+                <a href="{% url 'payment_methods' %}" class="btn btn-link text-decoration-none">CANCEL</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}

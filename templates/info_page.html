@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5" style="margin-top: 50px;">
+    
+    <h2 class="mb-4">{{ title }}</h2>
+
+    <div class="card shadow-sm mb-5">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Saved Cards (Credit/Debit)</h5>
+            <a href="{% url 'add_payment_method' method_type='card' %}" class="btn btn-sm btn-primary">
+                <i class="bi bi-plus-circle"></i> Add Card
+            </a>
+        </div>
+        <div class="card-body p-0">
+            {% if saved_cards %}
+                <ul class="list-group list-group-flush">
+                    {% for card in saved_cards %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="bi bi-credit-card me-2 {% if card.is_default %}text-primary{% endif %}"></i>
+                            <span class="fw-bold">{{ card.card_type }}</span> ending in 
+                            <span class="text-secondary">**** {{ card.card_number_last_four }}</span>
+                            <span class="ms-3 small text-muted">Expires: {{ card.expiry_month }}/{{ card.expiry_year }}</span>
+                            {% if card.is_default %}
+                                <span class="badge bg-success ms-2">DEFAULT</span>
+                            {% endif %}
+                        </div>
+                        <div class="d-flex gap-2">
+                            {% comment %} Placeholder URLs for delete/default actions {% endcomment %}
+                            <a href="#" class="btn btn-sm btn-outline-danger">Delete</a>
+                            {% if not card.is_default %}
+                                <a href="#" class="btn btn-sm btn-outline-primary">Set Default</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="p-4 text-center text-muted">No cards saved yet.</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card shadow-sm mb-5">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Saved UPI IDs</h5>
+            <a href="{% url 'add_payment_method' method_type='upi' %}" class="btn btn-sm btn-primary">
+                <i class="bi bi-plus-circle"></i> Add UPI ID
+            </a>
+        </div>
+        <div class="card-body p-0">
+            {% if saved_upis %}
+                <ul class="list-group list-group-flush">
+                    {% for upi in saved_upis %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="bi bi-wallet2 me-2 {% if upi.is_default %}text-primary{% endif %}"></i>
+                            <span class="fw-bold">{{ upi.upi_id }}</span>
+                            {% if upi.is_default %}
+                                <span class="badge bg-success ms-2">DEFAULT</span>
+                            {% endif %}
+                        </div>
+                        <div class="d-flex gap-2">
+                            {% comment %} Placeholder URLs for delete/default actions {% endcomment %}
+                            <a href="#" class="btn btn-sm btn-outline-danger">Delete</a>
+                            {% if not upi.is_default %}
+                                <a href="#" class="btn btn-sm btn-outline-primary">Set Default</a>
+                            {% endif %}
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="p-4 text-center text-muted">No UPI IDs saved yet.</div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <a href="{% url 'user_dashboard' %}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+</div>
+{% endblock %}

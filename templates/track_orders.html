@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="container py-5" style="margin-top: 50px;">
+    
+    <div class="row">
+        <div class="col-12 mb-4">
+            <a href="{% url 'user_dashboard' %}" class="btn btn-sm btn-outline-secondary">
+                <i class="bi bi-speedometer2"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <h2 class="mb-4">📦 Order Tracking</h2>
+    <p class="text-muted">Review the status and details of your recent purchases.</p>
+
+    {% if orders %}
+        {% for order in orders %}
+        <div class="card shadow-sm mb-4 border-start border-4 border-primary">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Order #{{ order.id }}</h5>
+                <span class="badge {{ 'Processing'|status_badge_class }} fs-6">
+                    Processing
+                </span>
+            </div>
+            
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-md-4">
+                        <p class="mb-1 text-muted small">Total Paid:</p>
+                        <h4 class="text-success">₹{{ order.total_price }}</h4>
+                    </div>
+                    
+                    <div class="col-md-4 text-center">
+                        <p class="mb-1 text-muted small">Order Date:</p>
+                        <span class="badge bg-light text-dark fs-6">{{ order.created_at|date:"M d, Y" }}</span>
+                    </div>
+                    
+                    <div class="col-md-4 text-end">
+                        <p class="mb-1 text-muted small">Current Status:</p>
+                        <span class="badge {{ 'Processing'|status_badge_class }} fs-6">
+                             Processing & Packed
+                        </span> 
+                        <a href="#" class="btn btn-sm btn-outline-primary mt-2">View Details</a>
+                    </div>
+                </div>
+                
+                <hr class="my-3">
+                
+                <p class="mb-1 fw-bold small text-primary">Items in Order:</p>
+                <ul class="list-unstyled small ps-3">
+                    {% for item in order.product_names|split:"\n" %}
+                        <li>— {{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-info text-center mt-5">
+            <h4 class="alert-heading">No Orders Found</h4>
+            <p>It looks like you haven't placed any orders yet. Start shopping now!</p>
+            <a href="{% url 'index' %}" class="btn btn-primary">Continue Shopping</a>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

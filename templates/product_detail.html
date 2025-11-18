@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5" style="margin-top: 50px;">
+    
+    <div class="row">
+        <div class="col-12 mb-4">
+            <a href="{% url 'index' %}" class="btn btn-sm btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to Products
+            </a>
+        </div>
+    </div>
+
+    <div class="row gx-5">
+        
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-0 mb-4">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}" style="max-height: 500px; object-fit: contain; padding: 20px;">
+                {% else %}
+                    <div class="text-center p-5 bg-light"><i class="bi bi-image-fill display-4 text-muted"></i><p>No Image Available</p></div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <h5 class="text-muted small">{{ product.category.name|default:"Uncategorized" }}</h5>
+            <h1 class="mb-3">{{ product.name }}</h1>
+            
+            <div class="mb-4">
+                <span class="text-warning">
+                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i><i class="bi bi-star"></i>
+                </span>
+                <span class="text-muted small">(15 Reviews)</span>
+            </div>
+
+            <p class="lead fw-bold text-success display-6 mb-4">
+                ₹{{ product.price }}
+            </p>
+
+            <p class="mb-4">{{ product.description }}</p>
+
+            <hr>
+
+            <div class="d-grid gap-2 col-lg-8 mx-auto">
+                
+                {% if user.is_authenticated %}
+                    <a href="{% url 'add_to_wishlist' product.id %}" 
+                       class="btn btn-outline-danger btn-lg w-100 mb-3"
+                       title="Click to toggle wishlist status">
+                        <i class="bi bi-heart"></i> Add to Wishlist
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-outline-danger btn-lg w-100 mb-3">
+                        <i class="bi bi-heart"></i> Login to Add to Wishlist
+                    </a>
+                {% endif %}
+                <form action="{% url 'cart_add' product.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">
+                        <i class="bi bi-cart-plus-fill"></i> Add to Cart
+                    </button>
+                </form>
+
+                <a href="#" class="btn btn-success btn-lg w-100">
+                    <i class="bi bi-bag-fill"></i> Buy Now
+                </a>
+            </div>
+            </div>
+    </div>
+
+    <hr class="my-5">
+
+    <div class="row">
+        <div class="col-12">
+            <h2>Customer Reviews</h2>
+            <div class="alert alert-info mt-3">
+                <p>This is where customer reviews will be displayed. You can implement a separate app (like Django-Comments or a custom model) to handle user submissions and display here.</p>
+                <p>Example Review: "Great product! Highly recommend." - User Aizen</p>
+            </div>
+            
+            <button class="btn btn-outline-primary mt-3">Write a Review</button>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

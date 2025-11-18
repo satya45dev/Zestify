@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5" style="margin-top: 50px;">
+    
+    <h2 class="mb-4">Select Payment Method</h2>
+
+    <div class="row gx-5">
+        
+        <div class="col-lg-7 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-warning text-dark">
+                    Choose an Option
+                </div>
+                <div class="card-body">
+                    <form id="paymentForm">
+                        
+                        <div class="form-check border border-success p-3 mb-3 rounded bg-success-light">
+                            <input class="form-check-input" type="radio" name="payment_method" id="cod" value="COD" checked>
+                            <label class="form-check-label h5 text-dark" for="cod">
+                                Cash on Delivery (COD)
+                            </label>
+                            <p class="text-muted small mb-0">Pay with cash upon delivery of your order.</p>
+                        </div>
+                        
+                        <div class="p-3 mb-3 border rounded">
+                            <h5 class="mb-3 text-primary">Card/Digital Payments</h5>
+
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="radio" name="payment_method" id="credit_card" value="CREDIT_CARD">
+                                <label class="form-check-label" for="credit_card">
+                                    <i class="bi bi-credit-card-fill"></i> **Credit Card** / **Debit Card**
+                                </label>
+                            </div>
+                            
+                            <div id="cardDetails" class="ms-4 p-3 bg-light rounded mb-3" style="display: none;">
+                                <small class="text-danger">Integration required. This is currently simulated.</small>
+                                
+                                <input type="text" class="form-control form-control-sm mt-2" placeholder="Card Number">
+                                
+                                <div class="row mt-2 gx-2">
+                                    <div class="col-6">
+                                        <input type="text" class="form-control form-control-sm" placeholder="Expiry MM/YY">
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" class="form-control form-control-sm" placeholder="CVV">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h6 class="mb-2 text-secondary">Pay via UPI App</h6>
+                                <p class="small text-muted">Clicking below will open the app on your mobile device.</p>
+                                
+                                <div class="d-flex flex-wrap gap-2 mb-3">
+                                    <button type="button" class="btn btn-sm btn-outline-dark">
+                                        <img src="{% static 'img/upi/gpay.jpg' %}" alt="GPay" style="height: 18px; margin-right: 5px;">
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-dark">
+                                        <img src="{% static 'img/upi/PhonePe.png' %}" alt="PhonePe" style="height: 18px; margin-right: 5px;">
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-dark">
+                                        <img src="{% static 'img/upi/paytm.jpg' %}" alt="Paytm" style="height: 18px; margin-right: 5px;">
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-dark">
+                                        <img src="{% static 'img/upi/BHIM_Preview.png' %}" alt="BHIM" style="height: 18px; margin-right: 5px;">
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-check mt-3">
+                                <input class="form-check-input" type="radio" name="payment_method" id="custom_upi" value="CUSTOM_UPI">
+                                <label class="form-check-label" for="custom_upi">
+                                    <i class="bi bi-wallet-fill"></i> **Pay by UPI ID**
+                                </label>
+                                
+                                <div id="upiIdDetails" class="ms-4 p-3 bg-light rounded" style="display: none;">
+                                    <input type="text" class="form-control form-control-sm mt-2" placeholder="Enter UPI ID (e.g., user@bankname)">
+                                </div>
+                            </div>
+
+                        </div> <div class="p-3 border rounded">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="payment_method" id="emi" value="EMI">
+                                <label class="form-check-label h5 text-success" for="emi">
+                                    <i class="bi bi-clock-fill"></i> **EMI (Easy Monthly Installments)**
+                                </label>
+                                <p class="text-muted small mb-0 ms-4">Available on major credit cards (T&C Apply).</p>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card shadow-lg border-0 bg-light">
+                <div class="card-body">
+                    <h5 class="card-title mb-4">Final Order Review</h5>
+
+                    <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
+                        <span>Items Total:</span>
+                        <span>₹{{ cart.get_total_price }}</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
+                        <span>Shipping:</span>
+                        <span class="text-success">FREE</span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mb-4">
+                        <span class="h4 fw-bold">Grand Total:</span>
+                        <span class="h4 fw-bold text-primary">₹{{ cart.get_total_price }}</span>
+                    </div>
+
+                    <form method="post" action="{% url 'process_payment' %}">
+                        {% csrf_token %}
+                        
+                        <div class="alert alert-info small" role="alert">
+                           Total amount: <strong>₹{{ cart.get_total_price }}</strong> will be charged upon method confirmation.
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-lg w-100">
+                            <i class="bi bi-check-circle-fill"></i> CONFIRM PAYMENT & ORDER
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // JavaScript to toggle the card and UPI details based on radio button selection
+    document.addEventListener('DOMContentLoaded', function() {
+        const paymentForm = document.getElementById('paymentForm');
+        const cardDetails = document.getElementById('cardDetails');
+        const upiIdDetails = document.getElementById('upiIdDetails');
+        
+        // Function to handle showing/hiding detail inputs
+        const toggleDetails = (targetId) => {
+            cardDetails.style.display = 'none';
+            upiIdDetails.style.display = 'none';
+
+            if (targetId === 'credit_card') {
+                cardDetails.style.display = 'block';
+            } else if (targetId === 'custom_upi') {
+                upiIdDetails.style.display = 'block';
+            }
+        };
+
+        // Event listener for any change in the radio buttons
+        paymentForm.addEventListener('change', function(event) {
+            if (event.target.name === 'payment_method') {
+                toggleDetails(event.target.id);
+            }
+        });
+        
+        // Initial state check when the page loads (for 'COD' being checked by default)
+        toggleDetails(document.querySelector('input[name="payment_method"]:checked').id);
+    });
+</script>
+{% endblock %}
