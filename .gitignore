@@ -1,0 +1,17 @@
+# 1. Python Internals (Compiled files)
+*.pyc
+__pycache__/
+
+# 2. Local Database (Don't push your local data to the cloud)
+db.sqlite3
+
+# 3. Security (NEVER push your secrets/keys)
+.env
+
+# 4. Virtual Environments (Optional, but good practice)
+env/
+venv/
+.venv/
+
+# 5. Render/Deployment Assets
+staticfiles/
