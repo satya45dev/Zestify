@@ -1,5 +1,9 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
+from django.views.static import serve
+from django.urls import re_path
 
 urlpatterns = [
     # General & Product Views
@@ -43,4 +47,10 @@ urlpatterns = [
     path('payments/card/default/<int:card_id>/', views.set_default_card_view, name='set_default_card'),
     path('payments/upi/delete/<int:upi_id>/', views.delete_upi_view, name='delete_upi'),
     path('payments/upi/default/<int:upi_id>/', views.set_default_upi_view, name='set_default_upi'),
+]
+
+urlpatterns += [
+    re_path(r'^media/(?P<path>.*)$', serve, {
+        'document_root': settings.MEDIA_ROOT,
+    }),
 ]
