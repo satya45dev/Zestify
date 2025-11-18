@@ -80,7 +80,6 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 # Updated: Uses PostgreSQL on Render, SQLite locally
 DATABASES = {
     'default': dj_database_url.config(
-        # Replace this value with your local database URL if you want to use Postgres locally
         default='sqlite:///' + str(BASE_DIR / 'db.sqlite3'),
         conn_max_age=600
     )
